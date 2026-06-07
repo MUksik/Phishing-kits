@@ -11,6 +11,7 @@ COPY fake-sendmail.sh /usr/local/bin/fake-sendmail
 COPY apache-sandbox.conf /etc/apache2/conf-available/sandbox.conf
 
 RUN chmod +x /usr/local/bin/fake-sendmail \
+    && sed -i 's/\r$//' /usr/local/bin/fake-sendmail \
     && mkdir -p /var/log/php-mail /var/www/html \
     && chown -R www-data:www-data /var/log/php-mail /var/www/html \
     && a2enconf sandbox
