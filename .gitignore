@@ -1,3 +1,44 @@
-.venv/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+pip-wheel-metadata/
+.pytest_cache/
+
+# Pliki środowiskowe
+.env
+.env.*
+!.env.example
+
+# Pobrane lub podejrzane archiwa
+downloaded_kits/*
+!downloaded_kits/.gitkeep
+
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Katalog z uruchamianymi plikami HTML/PHP
+kits/*
+!kits/.gitkeep
+!kits/test.php
+
+# Logi sandboxa
+logs/*
+!logs/.gitkeep
+
+# Logi i pliki tymczasowe
+*.log
+tmp/
+temp/
+
+# System / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
