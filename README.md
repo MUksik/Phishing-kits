@@ -13,3 +13,6 @@ python -m venv .venv
 source .venv/Scripts/activate
 pip install -r requirements.txt
 python url_scanner.py input_urls.txt
+
+#### Przeglądarka
+Przed uruchomieniem programu należy zainstalować przeglądarkę Chrome lub Firefox.
