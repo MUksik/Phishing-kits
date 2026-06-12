@@ -200,6 +200,19 @@ def build_url(entry_file: Path, extracted_dir: str, base_url: str = None):
         return Path(entry_file).absolute().as_uri()
 
 
+def build_deploy_url(entry_name: str, deploy_dest: Path, deploy_path: str, deploy_base_url: str):
+    deploy_root = Path(deploy_path)
+    url_parts = []
+
+    # For relative deploy paths (e.g. "kits"), include them in the served URL path.
+    if not deploy_root.is_absolute():
+        url_parts.extend([p for p in deploy_root.parts if p not in (".", "")])
+
+    url_parts.append(Path(deploy_dest).name)
+    url_parts.append(entry_name)
+    return "/".join([deploy_base_url.rstrip("/")] + url_parts)
+
+
 def find_browser_binary(browser, browser_path=None):
     if browser_path:
         return browser_path if shutil.which(browser_path) or Path(browser_path).exists() else None
@@ -410,8 +423,7 @@ def process_archive(
             print(f"  Failed to deploy to {deploy_path}: {e}")
 
     if deploy_base_url and deploy_dest:
-        rel = Path(deploy_dest).name
-        url = "/".join([deploy_base_url.rstrip('/'), rel, Path(entry).name])
+        url = build_deploy_url(Path(entry).name, Path(deploy_dest), deploy_path, deploy_base_url)
     elif base_url:
         url = build_url(entry, extracted, base_url)
     elif deploy_dest:
